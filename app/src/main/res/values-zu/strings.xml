@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">app_name</string>
+    <string name="headline">headline</string>
+    <string name="subline">subline</string>
+    <string name="how_to_text">how_to_text</string>
+    <string name="shake_button_text">shake_button_text</string>
+    <string name="current_language_label">current_language_label</string>
+</resources>
