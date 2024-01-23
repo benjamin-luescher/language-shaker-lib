@@ -1,7 +1,11 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("maven-publish")
 }
+
+group = "ch.benlu.languageshakerlib"
+version = "1.0.0"
 
 android {
     namespace = "ch.benlu.languageshakerlib"
