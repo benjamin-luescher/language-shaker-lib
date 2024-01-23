@@ -53,7 +53,6 @@ afterEvaluate {
 
             // Creates a Maven publication called "release".
             register("release", MavenPublication::class) {
-
                 // Applies the component for the release build variant.
                 // NOTE : Delete this line code if you publish Native Java / Kotlin Library
                 from(components["release"])
@@ -64,13 +63,11 @@ afterEvaluate {
 
                 // Library Name / Module Name (Example : "androidfirstlib")
                 // NOTE : Different ArtifactId For Each Library / Module, So That Each Library Is Not Overwritten
-                artifactId = "languageshakerlib"
+                artifactId = "language-shaker-lib"
 
                 // Version Library Name (Example : "1.0.0")
                 version = "1.0.0"
-
             }
-
         }
     }
 }
