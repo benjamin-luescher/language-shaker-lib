@@ -59,7 +59,7 @@ afterEvaluate {
 
                 // Library Package Name (Example : "com.frogobox.androidfirstlib")
                 // NOTE : Different GroupId For Each Library / Module, So That Each Library Is Not Overwritten
-                groupId = "ch.benlu.languageshakerlib"
+                groupId = "com.github.benjamin-luescher"
 
                 // Library Name / Module Name (Example : "androidfirstlib")
                 // NOTE : Different ArtifactId For Each Library / Module, So That Each Library Is Not Overwritten
