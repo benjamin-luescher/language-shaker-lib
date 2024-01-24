@@ -49,10 +49,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
 
-//tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.BaseKtLintCheckTask> {
-//    workerMaxHeapSize.set("512m")
-//}
-
 publishing {
     publications {
 

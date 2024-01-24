@@ -11,7 +11,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
 }
 
-//ktlint {
-//    debug.set(true)
-//    disabledRules.set(setOf("no-wildcard-imports", "final-newline"))
-//}
+ktlint {
+    debug.set(true)
+    disabledRules.set(setOf("no-wildcard-imports", "final-newline"))
+}
