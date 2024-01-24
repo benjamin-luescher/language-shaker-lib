@@ -3,6 +3,7 @@ package ch.benlu.languageshakerapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,12 +13,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Badge
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -99,11 +102,40 @@ fun WelcomeScreen(modifier: Modifier = Modifier) {
                     }
 
                     Spacer(modifier = Modifier.padding(8.dp))
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = stringResource(id = R.string.how_to_text),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
+                    Card() {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = stringResource(id = R.string.how_to_headline),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+
+                            Spacer(modifier = Modifier.padding(8.dp))
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = stringResource(id = R.string.how_to_text),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 16.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Button(
+                                    onClick = { /*TODO*/ }
+                                ) {
+                                    Text(text = stringResource(id = R.string.btn_text_more))
+                                }
+                                TextButton(onClick = { /*TODO*/ }) {
+                                    Text(text = stringResource(id = R.string.btn_text_read))
+                                }
+                            }
+
+
+                        }
+                    }
                 }
 
                 Button(

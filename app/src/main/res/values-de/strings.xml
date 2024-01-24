@@ -3,6 +3,9 @@
     <string name="headline">Sprachschüttler</string>
     <string name="subline">Mach die Übersetzung deiner App einfach</string>
     <string name="how_to_text">Schüttle dein Smartphone, um die Sprache zu wechseln. Danach werden dir sämtliche Translation Keys als Values dargestellt. Somit kann ein Übersetzungsdienst einfach herausfinden, wo die Texte in der App zu finden sind.</string>
-    <string name="shake_button_text">Shake</string>
-    <string name="current_language_label">Current Language:</string>
+    <string name="shake_button_text">Schütteln</string>
+    <string name="current_language_label">Aktuelle Sprache:</string>
+    <string name="how_to_headline">Wie wird diese Library verwendet</string>
+    <string name="btn_text_more">Weiterlesen</string>
+    <string name="btn_text_read">Als gelesen markieren</string>
 </resources>

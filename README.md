@@ -7,6 +7,9 @@ Developer can easily integrate this library into their app and provide a *key-lo
 The *key-locale* only contains the keys of the strings that should be translated.
 The translation provider can then easily see which keys belong to which screen and provide the correct translations.
 
+![Device Locale (before shake)](/screenshots/jpg/before.jpeg "Device Locale (before shake)")
+![Key Locale (after shake)](/screenshots/jpg/after.jpeg "Key Locale (after shake)")
+
 ## Features
 Following features can be used by the developer and are configurable (enable/disable):
 - Shake to change language (default: enabled)

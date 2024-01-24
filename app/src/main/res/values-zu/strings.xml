@@ -5,4 +5,7 @@
     <string name="how_to_text">how_to_text</string>
     <string name="shake_button_text">shake_button_text</string>
     <string name="current_language_label">current_language_label</string>
+    <string name="how_to_headline">how_to_headline</string>
+    <string name="btn_text_more">btn_text_more</string>
+    <string name="btn_text_read">btn_text_read</string>
 </resources>

@@ -5,4 +5,7 @@
     <string name="how_to_text">Shake your smartphone to change the language. All translation keys are then displayed as values. This makes it easy for a translation service to find out where the texts can be found in the app.</string>
     <string name="shake_button_text">Shake</string>
     <string name="current_language_label">Current Language:</string>
+    <string name="how_to_headline">How to use this library</string>
+    <string name="btn_text_more">Read more</string>
+    <string name="btn_text_read">Mark as read</string>
 </resources>
