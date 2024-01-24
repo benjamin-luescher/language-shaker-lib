@@ -54,27 +54,28 @@ tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.BaseKtLintCheckTask> {
     workerMaxHeapSize.set("512m")
 }
 
-afterEvaluate {
-    publishing {
-        publications {
+publishing {
+    publications {
 
-            // Creates a Maven publication called "release".
-            register("release", MavenPublication::class) {
+        // Creates a Maven publication called "release".
+        register("release", MavenPublication::class) {
+
+            afterEvaluate {
                 // Applies the component for the release build variant.
                 // NOTE : Delete this line code if you publish Native Java / Kotlin Library
                 from(components["release"])
-
-                // Library Package Name (Example : "com.frogobox.androidfirstlib")
-                // NOTE : Different GroupId For Each Library / Module, So That Each Library Is Not Overwritten
-                groupId = "com.github.benjamin-luescher"
-
-                // Library Name / Module Name (Example : "androidfirstlib")
-                // NOTE : Different ArtifactId For Each Library / Module, So That Each Library Is Not Overwritten
-                artifactId = "language-shaker-lib"
-
-                // Version Library Name (Example : "1.0.0")
-                version = "1.0.0"
             }
+
+            // Library Package Name (Example : "com.frogobox.androidfirstlib")
+            // NOTE : Different GroupId For Each Library / Module, So That Each Library Is Not Overwritten
+            groupId = "com.github.benjamin-luescher"
+
+            // Library Name / Module Name (Example : "androidfirstlib")
+            // NOTE : Different ArtifactId For Each Library / Module, So That Each Library Is Not Overwritten
+            artifactId = "language-shaker-lib"
+
+            // Version Library Name (Example : "1.0.0")
+            version = "1.0.0"
         }
     }
 }
