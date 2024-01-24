@@ -92,7 +92,7 @@ androidComponents {
             targetStringsXml.writeText(updatedContent)
             println("Updated target file.")
         } else {
-            println("Fehler: strings.xml-Datei nicht gefunden in source oder target")
+            println("Error: strings.xml-file not found in source or target")
         }
     }
 }
