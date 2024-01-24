@@ -35,7 +35,7 @@ Following features can be used by the developer and are configurable (enable/dis
     ```
 
 ## Getting Started
-### Setup
+### Extend Application Class
 Create a new `ApplicationClass` (eg `MyApplication`) and extend it from `ApplicationLanguageShakerApplication` like below:
 ```kotlin
 class MyApplication : ApplicationLanguageShakerApplication(
@@ -59,11 +59,51 @@ Make sure to add the `MyApplication` class to your `AndroidManifest.xml` file wi
 Done! Now you can shake your device to change the language of your app to the defined *key-locale* (eg: `zu`).
 When you shake the device again, the language is changed back to the device locale.
 
-### Prepare translations
-Make sure you have the latest `strings.xml` file in your project.
-Copy your `strings.xml` file from `src/main/res/values` into the `src/main/res/values-<key-locale>` folder.
+### Replace Translations
+You have to replace the translations of your app with the keys of the strings. This can be done manually or automatically.
+Automatically is recommended because it is faster and less error-prone and the configuration is only done once.
 
-### Replace the values
-Replace the values of the strings with the keys of the strings. Open your `src/main/res/values-<key-locale>/strings.xml` file and replace the values with the keys.
-Do this via `Android Studio -> Edit -> Find -> Replace ...` and select `Regular Expression`.
-Search for `name="(.*)">([^<]*)` and replace it with `name="$1">$1`.
+#### Automatically
+In your `build.gradle` file add the following task and replace `values-zu` with your *key-locale*:
+```gradle
+androidComponents {
+    onVariants {
+        val sourceResDir = "src/main/res/values"
+        // replace with your key-locale  -------v
+        val targetResDir = "src/main/res/values-zu"
+
+        val sourceStringsXml = file("$sourceResDir/strings.xml")
+        val targetStringsXml = file("$targetResDir/strings.xml")
+
+        if (sourceStringsXml.exists()) {
+            targetStringsXml.writeText(sourceStringsXml.readText())
+
+            val sourceValues = Regex("""<string name="(.+?)">(.+?)</string>""")
+                .findAll(sourceStringsXml.readText())
+
+            val updatedContent = sourceValues.fold(targetStringsXml.readText()) { acc, match ->
+                val key = match.groupValues[1]
+                acc.replace(
+                    """<string name="$key">(.+?)</string>""".toRegex(),
+                    """<string name="$key">$key</string>"""
+                )
+            }
+
+            targetStringsXml.writeText(updatedContent)
+            println("Updated target file.")
+        } else {
+            println("Fehler: strings.xml-Datei nicht gefunden in source oder target")
+        }
+    }
+}
+```
+Your `strings.xml` file in your *key-locale* folder will now be automatically updated with the
+keys of the strings every time you build your app.
+
+#### Manually
+1. Prepare Translations
+   - Make sure you have the latest `strings.xml` file in your project.
+   - Copy your `strings.xml` file from `src/main/res/values` into the `src/main/res/values-<key-locale>` folder.
+2. Replace the values
+   - Replace the values of the strings with the keys of the strings. Open your `src/main/res/values-<key-locale>/strings.xml` file and replace the values with the keys.
+   - Do this via `Android Studio -> Edit -> Find -> Replace ...` and select `Regular Expression`. Search for `name="(.*)">([^<]*)` and replace it with `name="$1">$1`.

@@ -49,6 +49,36 @@ android {
     }
 }
 
+androidComponents {
+    onVariants {
+        val sourceResDir = "src/main/res/values"
+        val targetResDir = "src/main/res/values-zu"
+
+        val sourceStringsXml = file("$sourceResDir/strings.xml")
+        val targetStringsXml = file("$targetResDir/strings.xml")
+
+        if (sourceStringsXml.exists()) {
+            targetStringsXml.writeText(sourceStringsXml.readText())
+
+            val sourceValues = Regex("""<string name="(.+?)">(.+?)</string>""")
+                .findAll(sourceStringsXml.readText())
+
+            val updatedContent = sourceValues.fold(targetStringsXml.readText()) { acc, match ->
+                val key = match.groupValues[1]
+                acc.replace(
+                    """<string name="$key">(.+?)</string>""".toRegex(),
+                    """<string name="$key">$key</string>"""
+                )
+            }
+
+            targetStringsXml.writeText(updatedContent)
+            println("Updated target file.")
+        } else {
+            println("Fehler: strings.xml-Datei nicht gefunden in source oder target")
+        }
+    }
+}
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
