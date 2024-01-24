@@ -14,5 +14,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Language Shaker App"
-include(":app")
+// include(":app")
 include(":languageshakerlib")
