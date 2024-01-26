@@ -5,7 +5,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import ch.benlu.languageshakerapp.WelcomeScreen
 import ch.benlu.languageshakerapp.ui.theme.LanguageShakerAppTheme
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL,
+    showSystemUi = true, device = "id:pixel_6"
+)
 @Composable
 fun ScreenshotOriginalLanguage() {
     LanguageShakerAppTheme(dynamicColor = false) {
@@ -15,7 +17,8 @@ fun ScreenshotOriginalLanguage() {
     }
 }
 
-@Preview(locale = "zu", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
+@Preview(locale = "zu", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL
+    ,showSystemUi = true, device = "id:pixel_6")
 @Composable
 fun ScreenshotAfterShakeLanguage() {
 
