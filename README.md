@@ -33,7 +33,7 @@ Following features can be used by the developer and are configurable (enable/dis
 2. Add the dependency in your build.gradle file.
     ```gradle
     dependencies {
-        implementation 'com.github.benjamin-luescher:language-shaker-lib:1.0.1'
+        implementation 'com.github.benjamin-luescher:language-shaker-lib:1.0.2'
     }
     ```
 
