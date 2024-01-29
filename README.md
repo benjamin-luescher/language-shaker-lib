@@ -1,4 +1,6 @@
 # Language Shaker Lib
+[![](https://jitpack.io/v/benjamin-luescher/language-shaker-lib.svg)](https://jitpack.io/#benjamin-luescher/language-shaker-lib)
+
 ## Description
 This is an android library that allows users to easily shake their device to change the language of the app.
 When the user shakes the device again, the language is changed back to the original language.
@@ -41,7 +43,7 @@ Following features can be used by the developer and are configurable (enable/dis
 ### Extend Application Class
 Create a new `ApplicationClass` (eg `MyApplication`) and extend it from `ApplicationLanguageShakerApplication` like below:
 ```kotlin
-class MyApplication : ApplicationLanguageShakerApplication(
+class MyApplication : LanguageShakerApplication(
    isActive = BuildConfig.DEBUG, // only active in debug mode
    keyLocale = Locale.forLanguageTag("zu"), // define the "key locale" language
    timeDiff = 3000, // time difference between two shakes in milliseconds
@@ -67,36 +69,69 @@ You have to replace the translations of your app with the keys of the strings. T
 Automatically is recommended because it is faster and less error-prone and the configuration is only done once.
 
 #### Automatically
-In your `build.gradle` file add the following task and replace `values-zu` with your *key-locale*:
+In your module’s `build.gradle` file add the following snippet and replace keyLocale value with your keyLocale, 
+defined as parameter in `LanguageShakerApplication`.
 ```gradle
+plugins {
+    // ...
+}
+android {
+    // ...
+}
+
+// :::::::::::::::::::::::::::::::::::::
+// ::::: LANGUAGE SHAKER LIB COPY ::::::
+// :::::::::::::::::::::::::::::::::::::
+
+val keyLocale = "zu" // <-- replace with your key-locale
+val targetResDir = "src/main/res/values-$keyLocale"
+
 androidComponents {
-    onVariants {
-        val sourceResDir = "src/main/res/values"
-        // replace with your key-locale  -------v
-        val targetResDir = "src/main/res/values-zu"
+    onVariants(selector().withBuildType("debug")) {
+        // prepare key locale for debug builds
+        prepareKeyLocale()
+    }
+}
 
-        val sourceStringsXml = file("$sourceResDir/strings.xml")
-        val targetStringsXml = file("$targetResDir/strings.xml")
+/**
+ * This task copies the source strings.xml to the target strings.xml
+ * and replaces the values with the key.
+ */
+fun prepareKeyLocale() {
+    val sourceResDir = "src/main/res/values"
 
-        if (sourceStringsXml.exists()) {
-            targetStringsXml.writeText(sourceStringsXml.readText())
+    val sourceStringsXml = file("$sourceResDir/strings.xml")
+    val targetStringsXml = file("$targetResDir/strings.xml")
 
-            val sourceValues = Regex("""<string name="(.+?)">(.+?)</string>""")
-                .findAll(sourceStringsXml.readText())
+    // create targetResDir if not exists
+    val targetResDir = file(targetResDir)
+    if (!targetResDir.exists()) {
+        targetResDir.mkdirs()
+    }
 
-            val updatedContent = sourceValues.fold(targetStringsXml.readText()) { acc, match ->
-                val key = match.groupValues[1]
-                acc.replace(
-                    """<string name="$key">(.+?)</string>""".toRegex(),
-                    """<string name="$key">$key</string>"""
-                )
-            }
+    // create targetStringsXml if not exists
+    if (!targetStringsXml.exists()) {
+        targetStringsXml.createNewFile()
+    }
 
-            targetStringsXml.writeText(updatedContent)
-            println("Updated target file.")
-        } else {
-            println("Error: strings.xml-file not found in source or target")
+    if (sourceStringsXml.exists()) {
+        targetStringsXml.writeText(sourceStringsXml.readText())
+
+        val sourceValues = Regex("""<string name="(.+?)">(.+?)</string>""")
+            .findAll(sourceStringsXml.readText())
+
+        val updatedContent = sourceValues.fold(targetStringsXml.readText()) { acc, match ->
+            val key = match.groupValues[1]
+            acc.replace(
+                """<string name="$key">(.+?)</string>""".toRegex(),
+                """<string name="$key">$key</string>"""
+            )
         }
+
+        targetStringsXml.writeText(updatedContent)
+        println("Updated target file.")
+    } else {
+        println("Error: strings.xml-file not found in source or target")
     }
 }
 ```
