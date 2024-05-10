@@ -1,17 +1,20 @@
 package ch.benlu.languageshakerapp
 
 import ch.benlu.languageshakerlib.LanguageShakerApplication
+import dagger.hilt.android.HiltAndroidApp
 import java.util.Locale
 
-class MyShakerApplication: LanguageShakerApplication() {
+@HiltAndroidApp
+class MyShakerApplication : LanguageShakerApplication() {
     override fun onCreate() {
-        super.onCreate()
+        init(
+            isActive = BuildConfig.DEBUG,
+            keyLocale = Locale.forLanguageTag("zu"),
+            timeDiff = 3000,
+            shakeAcceleration = 12,
+            showToast = false,
+        )
 
-        // Set the values here instead of in the constructor (if you use Hilt)
-        isActive = BuildConfig.DEBUG
-        keyLocale = Locale.forLanguageTag("zu")
-        timeDiff = 3000
-        shakeAcceleration = 12
-        showToast = false
+        super.onCreate()
     }
 }

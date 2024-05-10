@@ -14,15 +14,28 @@ import android.widget.Toast
 import java.util.Locale
 import kotlin.math.sqrt
 
-open class LanguageShakerApplication(
-    var isActive: Boolean = true,
-    var keyLocale: Locale = Locale.forLanguageTag("zu"),
-    var timeDiff: Int = 3000,
-    var shakeAcceleration: Int = 12,
-    var showToast: Boolean = true
-): Application() {
+open class LanguageShakerApplication(): Application() {
+    var isActive: Boolean = true
+    lateinit var keyLocale: Locale
+    var timeDiff: Int = 0
+    var shakeAcceleration: Int = 0
+    var showToast: Boolean = false
     private lateinit var sensorManager: SensorManager
     private var lastShakeTime: Long = 0
+
+    fun init(
+        isActive: Boolean,
+        keyLocale: Locale,
+        timeDiff: Int,
+        shakeAcceleration: Int,
+        showToast: Boolean
+    ) {
+        this.isActive = isActive
+        this.keyLocale = keyLocale
+        this.timeDiff = timeDiff
+        this.shakeAcceleration = shakeAcceleration
+        this.showToast = showToast
+    }
 
     companion object {
         private lateinit var sharedPreferences: SharedPreferences

@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -25,7 +27,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -40,7 +42,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.1"
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
         resources {
@@ -60,16 +62,18 @@ androidComponents {
         if (sourceStringsXml.exists()) {
             targetStringsXml.writeText(sourceStringsXml.readText())
 
-            val sourceValues = Regex("""<string name="(.+?)">(.+?)</string>""")
-                .findAll(sourceStringsXml.readText())
+            val sourceValues =
+                Regex("""<string name="(.+?)">(.+?)</string>""")
+                    .findAll(sourceStringsXml.readText())
 
-            val updatedContent = sourceValues.fold(targetStringsXml.readText()) { acc, match ->
-                val key = match.groupValues[1]
-                acc.replace(
-                    """<string name="$key">(.+?)</string>""".toRegex(),
-                    """<string name="$key">$key</string>"""
-                )
-            }
+            val updatedContent =
+                sourceValues.fold(targetStringsXml.readText()) { acc, match ->
+                    val key = match.groupValues[1]
+                    acc.replace(
+                        """<string name="$key">(.+?)</string>""".toRegex(),
+                        """<string name="$key">$key</string>""",
+                    )
+                }
 
             targetStringsXml.writeText(updatedContent)
             println("Updated target file.")
@@ -91,14 +95,32 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation(project(":languageshakerlib"))
     testImplementation("junit:junit:4.14-SNAPSHOT")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // Dagger-Hilt
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.46")
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }
 
 tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.BaseKtLintCheckTask> {
     workerMaxHeapSize.set("512m")
+}
+
+apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
+// Optionally configure plugin
+configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    debug.set(true)
+    disabledRules.set(setOf("no-wildcard-imports", "final-newline"))
 }

@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
             LanguageShakerAppTheme(dynamicColor = false) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.background,
                 ) {
                     WelcomeScreen()
                 }
@@ -56,39 +56,43 @@ class MainActivity : ComponentActivity() {
 fun WelcomeScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
 
-    Scaffold (
+    Scaffold(
         content = {
-            Column(modifier = modifier
-                .padding(16.dp)
-                .padding(it)) {
-
+            Column(
+                modifier =
+                    modifier
+                        .padding(16.dp)
+                        .padding(it),
+            ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
                         text = stringResource(id = R.string.headline),
                         textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.headlineMedium
+                        style = MaterialTheme.typography.headlineMedium,
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
                     Text(
                         modifier = Modifier.fillMaxWidth(),
                         text = stringResource(id = R.string.subline),
                         textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleMedium,
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
                     Icon(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(100.dp),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .height(100.dp),
                         painter = painterResource(id = R.drawable.baseline_vibration_24),
-                        contentDescription = null
+                        contentDescription = null,
                     )
 
                     Badge(
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .align(alignment = Alignment.CenterHorizontally),
+                        modifier =
+                            Modifier
+                                .padding(8.dp)
+                                .align(alignment = Alignment.CenterHorizontally),
                         containerColor = MaterialTheme.colorScheme.secondary,
                     ) {
                         Row(modifier = Modifier.padding(4.dp)) {
@@ -96,35 +100,36 @@ fun WelcomeScreen(modifier: Modifier = Modifier) {
                             Spacer(modifier = Modifier.padding(8.dp))
                             Text(
                                 text = Locale.getDefault().displayLanguage,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Bold,
                             )
                         }
                     }
 
                     Spacer(modifier = Modifier.padding(8.dp))
-                    Card() {
+                    Card {
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
                                 text = stringResource(id = R.string.how_to_headline),
-                                style = MaterialTheme.typography.bodyLarge
+                                style = MaterialTheme.typography.bodyLarge,
                             )
 
                             Spacer(modifier = Modifier.padding(8.dp))
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
                                 text = stringResource(id = R.string.how_to_text),
-                                style = MaterialTheme.typography.bodyMedium
+                                style = MaterialTheme.typography.bodyMedium,
                             )
 
                             Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(top = 16.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween
+                                modifier =
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .padding(top = 16.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween,
                             ) {
                                 Button(
-                                    onClick = { /*TODO*/ }
+                                    onClick = { /*TODO*/ },
                                 ) {
                                     Text(text = stringResource(id = R.string.btn_text_more))
                                 }
@@ -132,8 +137,6 @@ fun WelcomeScreen(modifier: Modifier = Modifier) {
                                     Text(text = stringResource(id = R.string.btn_text_read))
                                 }
                             }
-
-
                         }
                     }
                 }
@@ -143,27 +146,31 @@ fun WelcomeScreen(modifier: Modifier = Modifier) {
                         // trigger shake event manually
                         LanguageShakerApplication.switchLanguage(
                             context,
-                            Locale.forLanguageTag("zu")
+                            Locale.forLanguageTag("zu"),
                         )
                     },
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .fillMaxWidth()
+                    modifier =
+                        Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth(),
                 ) {
-                    Icon(painter = painterResource(
-                        id = R.drawable.baseline_vibration_24),
-                        contentDescription = null
+                    Icon(
+                        painter =
+                            painterResource(
+                                id = R.drawable.baseline_vibration_24,
+                            ),
+                        contentDescription = null,
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
                     Text(text = stringResource(id = R.string.shake_button_text))
                 }
             }
-        }
+        },
     )
 }
 
 @Preview(
-    showSystemUi = true
+    showSystemUi = true,
 )
 @Composable
 fun GreetingPreview() {

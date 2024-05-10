@@ -38,40 +38,28 @@ Following features can be used by the developer and are configurable (enable/dis
     ```kotlin
     // ...
     dependencies {
-        implementation("com.github.benjamin-luescher:language-shaker-lib:1.0.4")
+        implementation("com.github.benjamin-luescher:language-shaker-lib:1.0.5")
     }
     // ...
     ```
 
 ## Getting Started
-### Extend Application Class (without Hilt)
+### Extend Application Class
 Create a new `ApplicationClass` (eg `MyApplication`) and extend it from `ApplicationLanguageShakerApplication` like below:
 ```kotlin
-class MyApplication : LanguageShakerApplication(
-   isActive = BuildConfig.DEBUG, // only active in debug mode
-   keyLocale = Locale.forLanguageTag("zu"), // define the "key locale" language
-   timeDiff = 3000, // time difference between two shakes in milliseconds
-   shakeAcceleration = 12, // shake acceleration
-   showToast = false // show toast message when language is changed
-) {
-    // ...
-}
-```
-### Extend Application Class (with Hilt)
-When using Hilt, you have to set the LanguageShakerApplication member variables in the onCreate method.
-```kotlin
 @HiltAndroidApp
-class MyApplication : LanguageShakerApplication() {
-    override fun onCreate() {
-        super.onCreate()
+class MyShakerApplication: LanguageShakerApplication() {
+   override fun onCreate() {
+      init(
+         isActive = BuildConfig.DEBUG,
+         keyLocale = Locale.forLanguageTag("zu"),
+         timeDiff = 3000,
+         shakeAcceleration = 12,
+         showToast = false
+      )
 
-        // Set the values here instead of in the constructor
-        isActive = BuildConfig.DEBUG
-        keyLocale = Locale.forLanguageTag("zu")
-        timeDiff = 3000
-        shakeAcceleration = 12
-        showToast = false
-    }
+      super.onCreate()
+   }
 }
 ```
 
