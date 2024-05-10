@@ -15,11 +15,11 @@ import java.util.Locale
 import kotlin.math.sqrt
 
 open class LanguageShakerApplication(
-    val isActive: Boolean = true,
-    val keyLocale: Locale,
-    val timeDiff: Int = 3000,
-    val shakeAcceleration: Int = 12,
-    val showToast: Boolean = true
+    var isActive: Boolean = true,
+    var keyLocale: Locale = Locale.forLanguageTag("zu"),
+    var timeDiff: Int = 3000,
+    var shakeAcceleration: Int = 12,
+    var showToast: Boolean = true
 ): Application() {
     private lateinit var sensorManager: SensorManager
     private var lastShakeTime: Long = 0

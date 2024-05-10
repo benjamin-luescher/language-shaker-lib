@@ -22,25 +22,29 @@ Following features can be used by the developer and are configurable (enable/dis
 
 ## Installation
 ### Gradle
-1. Add the JitPack repository to your build file
-    ```gradle
+1. Add the JitPack repository to your `settings.gradle.kts` file
+    ```kotlin
+    // ...
     dependencyResolutionManagement {
         repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
         repositories {
             // ...
-            maven { url "https://jitpack.io" }
+            maven("https://jitpack.io")
         }
     }
+    // ...
     ```
-2. Add the dependency in your build.gradle file.
-    ```gradle
+2. Add the dependency in your `build.gradle.kts` file.
+    ```kotlin
+    // ...
     dependencies {
-        implementation 'com.github.benjamin-luescher:language-shaker-lib:1.0.2'
+        implementation("com.github.benjamin-luescher:language-shaker-lib:1.0.4")
     }
+    // ...
     ```
 
 ## Getting Started
-### Extend Application Class
+### Extend Application Class (without Hilt)
 Create a new `ApplicationClass` (eg `MyApplication`) and extend it from `ApplicationLanguageShakerApplication` like below:
 ```kotlin
 class MyApplication : LanguageShakerApplication(
@@ -51,6 +55,23 @@ class MyApplication : LanguageShakerApplication(
    showToast = false // show toast message when language is changed
 ) {
     // ...
+}
+```
+### Extend Application Class (with Hilt)
+When using Hilt, you have to set the LanguageShakerApplication member variables in the onCreate method.
+```kotlin
+@HiltAndroidApp
+class MyApplication : LanguageShakerApplication() {
+    override fun onCreate() {
+        super.onCreate()
+
+        // Set the values here instead of in the constructor
+        isActive = BuildConfig.DEBUG
+        keyLocale = Locale.forLanguageTag("zu")
+        timeDiff = 3000
+        shakeAcceleration = 12
+        showToast = false
+    }
 }
 ```
 
